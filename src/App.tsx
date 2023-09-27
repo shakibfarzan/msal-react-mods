@@ -1,13 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// MSAL imports
+import { MsalProvider } from "@azure/msal-react";
+import { IPublicClientApplication } from "@azure/msal-browser";
+import Register from "./components/Register";
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+type AppProps = {
+    pca: IPublicClientApplication;
+};
+
+function App({ pca }: AppProps) {
+    return (
+        <MsalProvider instance={pca}>
+          <div className="App">
+              <Register />
+          </div>
+        </MsalProvider>
+    );
 }
 
 export default App;
