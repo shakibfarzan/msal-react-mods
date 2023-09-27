@@ -23,3 +23,11 @@ export const loginRequest: PopupRequest = {
     prompt: "select_account",
     loginHint: "user@example.com",
 };
+
+const GRAPH_ME_ENDPOINT = "https://graph.microsoft.com/v1.0/me";
+
+export const graphEndpoints = {
+    me: GRAPH_ME_ENDPOINT,
+    emailMessages: `${GRAPH_ME_ENDPOINT}/messages`,
+    events: `${GRAPH_ME_ENDPOINT}/events` 
+};

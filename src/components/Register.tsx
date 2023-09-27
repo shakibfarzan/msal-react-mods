@@ -4,7 +4,7 @@ import { loginRequest } from '../authConfig';
 import { InteractionStatus } from '@azure/msal-browser';
 
 const Register: React.FC = () => {
-    const { instance, inProgress, accounts } = useMsal();
+    const { instance, inProgress } = useMsal();
     const isAuthenticated = useIsAuthenticated();
   
     const handleLogin = async () => {
@@ -23,7 +23,7 @@ const Register: React.FC = () => {
         console.error("Error during logout:", error);
       }
     }
-    console.log(accounts);
+  
     if (isAuthenticated) {
       return <button className='p-1 text-white bg-red-700 rounded-md' onClick={handleLogout}>Logout from Microsoft</button>;
     } else if (inProgress !== InteractionStatus.Startup && inProgress !== InteractionStatus.HandleRedirect) {
