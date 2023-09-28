@@ -4,6 +4,7 @@ import { graphEndpoints, loginRequest } from '../authConfig';
 
 const EmailList: React.FC = () => {
     const [emails, setEmails] = useState([]);
+    
 
     useEffect(() => {
         getEmails().then((res) => setEmails(res.value));
