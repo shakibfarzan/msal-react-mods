@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { msalInstance } from '..';
-import { graphEndpoints, loginRequest } from '../authConfig';
+import { getHeaders, graphEndpoints } from '../authConfig';
 
 const EmailList: React.FC = () => {
     const [emails, setEmails] = useState([]);
@@ -11,7 +10,7 @@ const EmailList: React.FC = () => {
     }, []);
 
   return (
-    <div>{emails.map((e: any) => 
+    <div className='mb-8'>{emails.map((e: any) => 
         <div key={e.subject} className="mb-6">
             <p className="text-blue-800 mb-1">Subject: {e.subject}</p>
             <div dangerouslySetInnerHTML={{ __html: e.body.content}}/>
@@ -23,20 +22,10 @@ const EmailList: React.FC = () => {
 export default EmailList;
 
 const getEmails = async () => {
-    const account = msalInstance.getActiveAccount();
-    const response = await msalInstance.acquireTokenSilent({
-        ...loginRequest,
-        account: account!
-    });
-
-    const headers = new Headers();
-    const bearer = `Bearer ${response.accessToken}`;
-
-    headers.append("Authorization", bearer);
-
+    const headers = await getHeaders();
     const options = {
         method: "GET",
-        headers: headers
+        headers,
     };
     return fetch(graphEndpoints.emailMessages, options).then((res) => res.json()).catch(() => {});
 }
